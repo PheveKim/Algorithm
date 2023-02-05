@@ -15,42 +15,28 @@ public class Solution {
 
 			String input = br.readLine();
 
-			// String[] arr = new String[input.length()];
-			String[] arr = new String[input.length()];
-
-			for (int i = 0; i < arr.length; i++)
-				arr[i] = input.substring(i, i + 1);
-//
-//			for (int i = 0; i < arr.length; i++) {
-//				if (arr.get(i).equals("(") && arr.get(i + 1).equals(")")) {
-//					arr.set(i, "_");
-//					arr.remove(i + 1);
-//				}
-//			}
-
 			int left_cnt = 0;
 			int sum = 0;
-			
-			
-			for (int i = 0; i < arr.length; i++) {
 
-				String now = arr[i];
+			for (int i = 0; i < input.length(); i++) {
+
+				String now = input.substring(i, i + 1);
 				String before = "";
-				if(i==0) before = "";
-				else before = arr[i-1];
-				if(now.equals("(")) {
+				if (i == 0)
+					before = "";
+				else
+					before = input.substring(i - 1, i);
+				if (now.equals("(")) {
 					left_cnt++;
 					sum++;
-				}
-				else if(now.equals(")") && before.equals("(")) {
+				} else if (now.equals(")") && before.equals("(")) {
 					left_cnt--;
 					sum--;
-					sum+=left_cnt;
-				}
-				else if (now.equals(")") && !before.equals("(")){
+					sum += left_cnt;
+				} else if (now.equals(")") && !before.equals("(")) {
 					left_cnt--;
 				}
-			
+
 			}
 
 			bw.write("#" + (t + 1) + " " + sum);
