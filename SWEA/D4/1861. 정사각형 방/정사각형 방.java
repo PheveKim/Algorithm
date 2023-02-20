@@ -4,10 +4,10 @@ import java.lang.*;
 
 public class Solution {
 
-	static int[] dr = { -1, 1, 0, 0 };
-	static int[] dc = { 0, 0, -1, 1 };
-	static int[][] arr;
+	static int dr[] = { -1, 1, 0, 0 };
+	static int dc[] = { 0, 0, -1, 1 };
 	static int N;
+	static int[][] arr;
 	static int max;
 
 	public static void main(String[] args) throws IOException {
@@ -17,7 +17,6 @@ public class Solution {
 		StringTokenizer st;
 
 		int T = Integer.parseInt(br.readLine());
-
 		for (int t = 0; t < T; t++) {
 
 			N = Integer.parseInt(br.readLine());
@@ -30,50 +29,44 @@ public class Solution {
 				}
 			}
 
-			int cnt2 = 0;
-			int answer = 0;
-			int answer_cnt = 0;
+			int max_real = 0;
+			int min_num = Integer.MAX_VALUE;
 			for (int row = 0; row < N; row++) {
 				for (int col = 0; col < N; col++) {
 					max = 0;
-					cnt2 = search(row, col, 1);
-					if (answer_cnt < cnt2) {
-						answer = arr[row][col];
-						answer_cnt = cnt2;
-					}
+					dfs(row, col, 1);
 
-					else if (answer_cnt == cnt2) {
-						if (answer > arr[row][col]) {
-							answer = arr[row][col];
-						}
+					int num = arr[row][col];
+					if (max_real < max) {
+						min_num = num;
 					}
+					if (max_real == max)
+						if (min_num > num)
+							min_num = num;
+
+					max_real = Math.max(max, max_real);
+
 				}
 			}
 
-			bw.write("#" + (t + 1) + " " + answer + " " + answer_cnt + "\n");
-			bw.flush();
+			System.out.println("#" + (t + 1) + " " + min_num + " " + max_real);
 		}
 
 	}
 
-	public static int search(int r, int c, int cnt) {
-
+	public static void dfs(int row, int col, int cnt) {
 		for (int i = 0; i < 4; i++) {
-			if (r + dr[i] >= 0 && r + dr[i] < N && c + dc[i] >= 0 && c + dc[i] < N) {
+			int nr = row + dr[i];
+			int nc = col + dc[i];
 
-				if (arr[r + dr[i]][c + dc[i]] == arr[r][c] + 1) {
-
+			if (nr >= 0 && nr < N && nc >= 0 && nc < N) {
+				if (arr[nr][nc] == arr[row][col] + 1) {
 					cnt++;
-					search(r + dr[i], c + dc[i], cnt);
-
+					max = Math.max(max, cnt);
+					dfs(nr, nc, cnt);
 				}
-
 			}
 		}
-
-		max = Math.max(max, cnt);
-		return max;
-
 	}
 
 }
