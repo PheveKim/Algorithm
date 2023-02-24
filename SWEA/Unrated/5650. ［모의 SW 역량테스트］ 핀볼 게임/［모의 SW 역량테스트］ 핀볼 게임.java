@@ -17,6 +17,16 @@ public class Solution {
     static ArrayList<Integer> start_r = new ArrayList<>();
     static ArrayList<Integer> start_c = new ArrayList<>();
     static String[] D = {"up", "down", "left", "right"};
+    static int k;
+    static int point;
+    static int next_row;
+    static int next_col;
+    static boolean direction_changed;
+    static int r_dir;
+    static int c_dir;
+    static int nr;
+    static int nc;
+    static String direction;
     
     
     
@@ -75,17 +85,6 @@ public class Solution {
  
     public static void pinball(int[][] arr, int row, int col) {
     	
-        int k;
-        int point;
-        int next_row;
-        int next_col;
-        boolean direction_changed;
-        int r_dir;
-        int c_dir;
-        int nr;
-        int nc;
-        String direction;
-         
         for(int i=0; i<4; i++) {
             direction = D[i];
             k = 1;
@@ -181,15 +180,9 @@ public class Solution {
                         else if(direction.equals("down")) direction = "left";
                     }
                     else if(arr[nr][nc] == 5) {
-                        point++;
-                        next_row = nr;
-                        next_col = nc;
-                        direction_changed = true;
-                        k = 1;
-                        if(direction.equals("right")) direction = "left";
-                        else if(direction.equals("left")) direction = "right";
-                        else if(direction.equals("up")) direction = "down";
-                        else if(direction.equals("down")) direction = "up";
+                        point = point * 2 + 1;
+                        max = Math.max(max, point);
+                        break;
                     }
                     else if(arr[nr][nc] >= 6 && arr[nr][nc] <= 10) {
                         // 다음 위치에 웜홀 발견
