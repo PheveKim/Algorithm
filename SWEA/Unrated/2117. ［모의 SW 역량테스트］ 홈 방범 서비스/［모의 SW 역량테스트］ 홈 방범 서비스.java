@@ -44,14 +44,9 @@ public class Solution {
 			for(int row=0; row<N; row++) {
 				for(int col=0; col<N; col++) {
 					visited = new boolean[N][N];
-					int row_diff = Math.max(row+1, N-row-1);
-					int col_diff = Math.max(col+1, N-col-1);
-					int max_K = row_diff + col_diff - 1;
-					bfs(row, col, max_K);
-//					System.out.println(row + " " + col + " " + max_house);
+					bfs(row, col);
 				}
 			}
-//			bfs(6, 7);
 			
 			bw.write("#" + (t+1) + " " + max_house);
 			bw.newLine();
@@ -59,57 +54,35 @@ public class Solution {
 		}
 	}
 	
-	public static void bfs(int row, int col, int max_K) {
+	public static void bfs(int row, int col) {
 		
-		int K = 1;
+		int K = 0;
+		int visited_cnt = 0;
+		int house_cnt = 0;
 		
-		Loop1: while(true) {
-			
-			if(K > max_K) break;
-			visited = new boolean[N][N];
-			Queue<int[]> q = new LinkedList<>();
-			q.add(new int[] {row, col});
-			visited[row][col] = true;
-			int house_cnt = 0;
-			
-			while(!q.isEmpty()) {
-				
-				
-				
-				int[] popped = q.poll();
-				int popped_row = popped[0];
-				int popped_col = popped[1];
-				
-				if(arr[popped_row][popped_col] == 1) house_cnt++;
-				
-				for(int i=0; i<4; i++) {
-					int nr = popped_row + dr[i];
-					int nc = popped_col + dc[i];
-					
-					if(nr>=0 && nr<N && nc>=0 && nc<N && visited[nr][nc] == false) {
-						if(Math.abs(nr-row) + Math.abs(nc-col) <= K-1) {
-							q.add(new int[] {nr,nc});
-							visited[nr][nc] = true;
-//							System.out.println(Math.abs(nr-row) + Math.abs(nc-col) + "   " + (K-1));
-//							for(int r=0; r<N; r++) {
-//								for(int c=0; c<N; c++) {
-//									if(visited[r][c]) System.out.print(1 + " ");
-//									else System.out.print(0 + " ");
-//								}
-//								System.out.println();
-//							}
-//							System.out.println();
+		visited[row][col] = true;
+		visited_cnt++;
+		if(arr[row][col] == 1) house_cnt++;
+		
+		while(true) {
+			if(visited_cnt >= N*N) break;
+			for(int r=row-(K-1); r<row+K; r++) {
+				for(int c=col-(K-1); c<col+K; c++) {
+					if(r>=0 && r<N && c>=0 && c<N) {
+						if(Math.abs(r-row) + Math.abs(c-col) <= K-1 && visited[r][c] == false) {
+							visited[r][c] = true;
+							visited_cnt++;
+							if(arr[r][c] == 1) house_cnt++;
 						}
 					}
 				}
 			}
+			
 			int profit = house_cnt * M - (K*K + (K-1)*(K-1));
-//			System.out.println(K + " " + house_cnt + " " + profit);
 			if(profit >= 0) {
 				max_house = Math.max(max_house, house_cnt);
 			}
 			K++;
 		}
-		
 	}
 }
