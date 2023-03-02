@@ -1,4 +1,3 @@
-
 import java.util.*;
 import java.io.*;
 import java.math.*;
@@ -47,7 +46,6 @@ public class Solution {
 			// 계단위에는 최대 3명
 			// 계단입구에 도착후, 1분후에 내려갈수있다.
 			// 모든 사람들이 계단을 내려가는 시간의 최소값이 되는 경우를 찾고, 그 시간을 출력.
-//			System.out.println(Arrays.deepToString(stairs));
 
 			list_1 = new ArrayList<>();
 			list_2 = new ArrayList<>();
@@ -62,17 +60,12 @@ public class Solution {
 				}
 			}
 
-//			System.out.println(list_1);
-//			System.out.println(list_2);
 			int list_size = list_1.size();
-			
-			
 			min_time = Integer.MAX_VALUE;
 			for(int i=0; i<list_size+1; i++) {
 				int[] chosen_1 = new int[list_size];
 				choose(i, 0, -1, chosen_1);
 			}
-			
 			
 			bw.write("#" + (t + 1) + " " + min_time);
 			bw.newLine();
@@ -89,20 +82,16 @@ public class Solution {
 			for(int i=0; i<chosen_2.length; i++) {
 				if(chosen_1[i] == 0) chosen_2[i] = list_2.get(i);
 			}
-//			System.out.println("chosen_1 : " + Arrays.toString(chosen_1));
-//			System.out.println("chosen_2 : " + Arrays.toString(chosen_2));
 			
 			// 이제 계단 시간 연산 시작.
 			// 계단 모두 탈출 시 min_time 값 갱신.
 			// chosen_1 : [0, 2, 2, 0, 5, 7]
 			// chosen_2 : [4, 0, 0, 3, 0, 0]
 			
-//			Arrays.sort(chosen_1);
+//			Arrays.sort(chosen_1);  // sort 안해줘도 되더라.
 //			Arrays.sort(chosen_2);
 			// chosen_1 : [0,0,2,2,5,7]
 			// chosen_2 : [0,0,0,0,3,4]
-//			System.out.println("chosen_1 : " + Arrays.toString(chosen_1));
-//			System.out.println("chosen_2 : " + Arrays.toString(chosen_2));
 			
 			boolean[] visited_1 = new boolean[chosen_1.length];
 			boolean[] visited_2 = new boolean[chosen_2.length];
@@ -132,7 +121,6 @@ public class Solution {
 					break;
 				}
 				
-				
 				for(int i=0; i<chosen_1.length; i++) {
 					if(chosen_1[i] == 0) visited_1[i] = true;
 					if(visited_1[i] == false) {
@@ -153,7 +141,6 @@ public class Solution {
 								}
 							}
 						}
-						
 					}
 				}
 				
@@ -180,16 +167,8 @@ public class Solution {
 						
 					}
 				}
-//				System.out.println("time = " + time);
-//				System.out.println(Arrays.toString(F1));
-//				System.out.println(Arrays.toString(F2));
-//				System.out.println();
 				time++;
 			}
-			
-			
-			
-			
 		}
 		
 		else {
@@ -200,16 +179,5 @@ public class Solution {
 				chosen_1[i] = 0; // 백트래킹 해줘야함.
 			}
 		}
-		
-		
-		
-		
 	}
-	
-	
-	
-	
 }
-
-
-
