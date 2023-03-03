@@ -37,22 +37,11 @@ public class Solution {
 			}
 			 
 			// 얼핏 봤을때는. cnt == L 일때 visited == true 인 지점의 개수를 출력하는것 같다.
-			
-			
 			boolean[][] visited_temp = new boolean[N][M];
 			visited_temp[R][C] = true;
 			visited[R][C] = true;
 			
 			dfs(R, C, 1, visited_temp);
-			
-//			for(int r=0; r<N; r++) {
-//				for(int c=0; c<M; c++) {
-//					System.out.print(visited[r][c] + " ");
-//				}
-//				System.out.println();
-//			}
-//			System.out.println();
-			
 			
 			int visited_cnt = 0;
 			for(int row=0; row<N; row++) {
@@ -60,8 +49,6 @@ public class Solution {
 					if(visited[row][col] == true) visited_cnt++;
 				}
 			}
-			
-			
 			
 			bw.write("#" + (t+1) + " " + visited_cnt);
 			bw.newLine();
@@ -74,15 +61,6 @@ public class Solution {
 	
 	public static void dfs(int R, int C, int cnt, boolean[][] visited_temp) {
 		
-		
-//		System.out.println("cnt = " + cnt);
-//		for(int r=0; r<N; r++) {
-//			for(int c=0; c<M; c++) {
-//				System.out.print(visited[r][c] + " ");
-//			}
-//			System.out.println();
-//		}
-//		System.out.println();
 		int current = arr[R][C];
 		
 		if(cnt < L) {
@@ -133,10 +111,6 @@ public class Solution {
 				
 				if(nr>=0 && nr<N && nc>=0 && nc<M) {
 					if(arr[nr][nc] != 0 && visited_temp[nr][nc] == false) {
-						
-//						System.out.println(nr + " " + nc + " ");
-//						System.out.println(Arrays.toString(cant_chosen));
-//						System.out.println(arr[nr][nc]);
 						for(int j=0; j<cant_chosen.length; j++) {
 							if(arr[nr][nc] == cant_chosen[j]) {
 								continue Loop1;
