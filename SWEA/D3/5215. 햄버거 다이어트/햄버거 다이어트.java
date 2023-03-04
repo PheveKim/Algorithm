@@ -4,48 +4,49 @@ import java.math.*;
 
 public class Solution {
 	static int N;
-	static int C;
-	static int max;
-	static int o;
-	public static void main(String[] args) throws IOException {
+	static int Cal_limit;
+	static int[] point;
+	static int[] cal;
+	static int max_point;
+	
+	public static void main(String[] args) throws IOException{
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st;
-
-		int T = Integer.parseInt(br.readLine());
-
-		for (int t = 0; t < T; t++) {
-			st = new StringTokenizer(br.readLine(), " ");
+		
+		int T = Integer.parseInt(br.readLine().trim());
+		for(int t=0; t<T; t++) {
+			
+			st = new StringTokenizer(br.readLine());
 			N = Integer.parseInt(st.nextToken());
-			C = Integer.parseInt(st.nextToken());
-			max = 0;
-			int[] tastes = new int[N];
-			int[] cals = new int[N];
-			boolean[] visited = new boolean[N];
-
-			for (int i = 0; i < N; i++) {
-				st = new StringTokenizer(br.readLine(), " ");
-				tastes[i] = Integer.parseInt(st.nextToken());
-				cals[i] = Integer.parseInt(st.nextToken());
+			Cal_limit = Integer.parseInt(st.nextToken());
+			
+			point = new int[N];
+			cal = new int[N];
+			for(int i=0; i<N; i++) {
+				st = new StringTokenizer(br.readLine());
+				point[i] = Integer.parseInt(st.nextToken());
+				cal[i] = Integer.parseInt(st.nextToken());
 			}
-
-			choose(tastes, cals, visited, 0, 0, 0);
-
-			bw.write("#" + (t + 1) + " " + max);
-			bw.newLine();
-			bw.flush();
+			
+			max_point = Integer.MIN_VALUE;
+			choose(0, 0, 0);
+			
+			System.out.println("#" + (t+1) + " " + max_point);
 		}
-
 	}
-
-	public static void choose(int[] tastes, int[] cals, boolean[] visited, int cal_sum, int taste_sum, int last_idx) {
-		for (int i = last_idx; i < N; i++) {
-			if (visited[i] == false && cal_sum + cals[i] <= C) {
-				max = Math.max(max, taste_sum + tastes[i]);
-				visited[i] = true;
-//				System.out.println(i + " " + (taste_sum + tastes[i]) + " " + (cal_sum + cals[i]) + "  " + Arrays.toString(visited));
-				choose(tastes, cals, visited, cal_sum + cals[i], taste_sum + tastes[i], i);
-				visited[i] = false;
+	
+	
+	// 100 300 240 500  400
+	// 200 500 300 1000 400
+	public static void choose(int last_idx, int point_sum, int cal_sum) {
+		
+		max_point = Math.max(max_point, point_sum);
+		
+		for(int i=last_idx; i<N; i++) {
+			if(cal_sum + cal[i] <= Cal_limit) {
+				choose(i + 1, point_sum + point[i], cal_sum + cal[i]);
 			}
 		}
 	}
