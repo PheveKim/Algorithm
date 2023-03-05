@@ -38,11 +38,8 @@ public class Main {
 				}
 			}
 		}
-		
-		
 		// 임의의 세점을 뽑는 조합 제귀 후
 		// 각 경우에 대해 2 를 기준으로 bfs 후에 남은 0의 개수 세기.
-
 		// 2차원 배열에서 임의의 점 세개를 뽑는 조합?
 		// 0 ~ 48 의 숫자중 임의로 세개를 뽑아서
 		// ex) 4, 26, 45 이면,
@@ -51,8 +48,6 @@ public class Main {
 		
 		max = Integer.MIN_VALUE;
 		choose(0, 0, new int[3]);
-		
-		
 		System.out.println(max);
 	}
 	
@@ -97,15 +92,9 @@ public class Main {
 			
 			max = Math.max(max, zero_cnt - visit_cnt - 3);
 			
-			
-			
-			
-			
-			
 			for(int i=0; i<chosen.length; i++) {
 				int r = chosen[i] / M;
 				int c = chosen[i] % M;
-				
 				arr[r][c] = 0;
 			} // 원래 땅으로 변환
 			
@@ -119,14 +108,7 @@ public class Main {
 					choose(cnt+1, i+1, chosen);
 					chosen[cnt] = 0;
 				}
-				
 			}
 		}
-		
 	}
-	
-	public static void bfs() {
-		
-	}
-	
 }
