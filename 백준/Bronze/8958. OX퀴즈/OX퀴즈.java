@@ -1,44 +1,36 @@
 import java.util.*;
 import java.io.*;
-import java.lang.*;
+import java.math.*;
 
 public class Main {
+	static int[][] arr;
+	static int N;
+	static int M;
+	static int min;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringTokenizer st;
 		
-		Scanner scanner = new Scanner(System.in);
-		int N = scanner.nextInt();
-		
+		N = Integer.parseInt(br.readLine());
 		
 		for(int i=0; i<N; i++) {
-			
-			String a = scanner.next();
-			int point = 0;
-			
-			
-			while(true) {
-				int cnt = 0;
-				while(a.substring(0,1).equals("O")) {
-					
+			String str = br.readLine();
+			int cnt = 0;
+			int sum = 0;
+			for(int j=0; j<str.length(); j++) {
+				String current = str.substring(j,j+1);
+				if(current.equals("O")) {
 					cnt++;
-					point += cnt;
-					if(a.length() == 1) break;
-					a = a.substring(1);
+					sum += cnt;
 				}
-				
-				if(a.length() == 1) break;
-				a = a.substring(1);
-				
+				else if(current.equals("X")) {
+					cnt = 0;
+				}
 			}
-			
-			
-			
-			System.out.println(point);
-			
+			System.out.println(sum);
 		}
 		
-		
-		
 	}
-	
 }
