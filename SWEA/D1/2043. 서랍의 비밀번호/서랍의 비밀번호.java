@@ -21,6 +21,7 @@ public class Solution {
 		int P = Integer.parseInt(st.nextToken());
 		int K = Integer.parseInt(st.nextToken());
 		
+        
 		System.out.println((P-K+1));
 
 	}
