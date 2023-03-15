@@ -1,56 +1,53 @@
 import java.util.*;
-
-import javax.imageio.IIOException;
-
 import java.io.*;
-import java.lang.*;
+import java.math.*;
 
 public class Main {
-
-	static int[][] arr;
+	static ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+	static int infected_num;
 	static boolean[] visited;
 	static int N;
 	static int M;
-	static int cnt;
-
 	public static void main(String[] args) throws IOException {
-
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st;
-
+		
 		N = Integer.parseInt(br.readLine());
 		M = Integer.parseInt(br.readLine());
-
-		arr = new int[N + 1][N + 1];
-		visited = new boolean[N + 1];
-
-		for (int m = 0; m < M; m++) {
-			st = new StringTokenizer(br.readLine(), " ");
+		
+		for(int i=0; i<=N; i++) {
+			list.add(new ArrayList<>());
+		}
+		visited = new boolean[N+1];
+		
+		for(int i=0; i<M; i++) {
+			st = new StringTokenizer(br.readLine());
 			int from = Integer.parseInt(st.nextToken());
 			int to = Integer.parseInt(st.nextToken());
-
-			arr[from][to] = 1;
-			arr[to][from] = 1;
+			
+			list.get(from).add(to);
+			list.get(to).add(from);
+			
 		}
-
-		cnt = 0;
-		dfs(1);
-		System.out.println(cnt-1);
-
+		infected_num = 0;
+		bfs(1);
+		System.out.println(infected_num);
 	}
-
-	public static void dfs(int from) {
-
-		visited[from] = true;
-		cnt++;
-
-		for (int to = 1; to < N + 1; to++) {
-			if (visited[to] == false && arr[from][to] == 1) {
-				dfs(to);
+	public static void bfs(int start) {
+		Queue<Integer> q = new LinkedList<>();
+		q.add(start);
+		visited[start] = true;
+		
+		while(!q.isEmpty()) {
+			int popped = q.poll();
+			for(int i=0; i<list.get(popped).size(); i++) {
+				if(visited[list.get(popped).get(i)] == false) {
+					q.add(list.get(popped).get(i));
+					visited[list.get(popped).get(i)] = true;
+					infected_num++;
+				}
 			}
 		}
-
 	}
-
 }
