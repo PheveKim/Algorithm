@@ -11,8 +11,6 @@ public class Main {
 	static int max_temp;
 	
 	public static void main(String[] args) throws IOException {
-//		long startTime = System.nanoTime(); // 코드 시작 시간
-
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st;
@@ -27,21 +25,12 @@ public class Main {
 				max = Math.max(max, arr[row][col]);
 			}
 		}
-		
 		changed = false;
 		max_arr = new int[10];
 		dfs(0, arr);
-//		System.out.println(max); //    조심!!!!!!!!        max 값이 MIN_VALUE 그대로 출력될때 항상 생각해서 예외처리해주기!!!!!
-//		for(int i=0; i<10; i++) {
-//			max = Math.max(max, max_arr[i]);
-//		}
 		bw.write(max + " ");
 		bw.newLine();
 		bw.flush();
-//		System.out.println(max);
-//		long endTime = System.nanoTime(); // 코드 끝난 시간
-//		long durationTimeSec = endTime - startTime;
-//		System.out.println(durationTimeSec/Math.pow(10, 9) + "s"); // 나노세컨드 출력
 	}
 	
 	public static void dfs(int cnt, int[][] arr_input) {
@@ -50,31 +39,20 @@ public class Main {
 				int[][] arr_copy = new int[n][n];
 				max_temp = 2;
 				for(int row=0; row<n; row++) {
-//					arr_copy[row] = arr_input[row].clone();
 					for(int col=0; col<n; col++) {
-						arr_copy[row][col] = arr_input[row][col]; // clone() 이 더 빠른지?????????????????
+						arr_copy[row][col] = arr_input[row][col]; // clone() 이 더 빠른지????????????? -> ㄴㄴ상관없음
 						max_temp = Math.max(max_temp, arr_copy[row][col]);
 					}
 				}
 				
 				changed = false;
 				move(direction[i], arr_copy);
-//				max_temp = Math.max(max_temp, max_tempo);
-//				if(changed == false && dir_before.equals(direction[i])) {}
-//				else {
-//					move(direction[i], arr_copy);
-//				}
 				if(changed == true) {
 					if(max_arr[cnt] < max_temp) {
 						max_arr[cnt] = max_temp;
 						max = Math.max(max, max_arr[cnt]);
 					}
-					
-					
 					if(cnt+1 < 10) {
-//						if(max_temp * 2 >= max_arr[cnt+1]) {
-//							dfs(cnt+1, arr_copy, direction[i]);
-//						}
 						if(max_temp * Math.pow(2, 9-cnt) > max_arr[9]) {
 							dfs(cnt+1, arr_copy);
 						}
@@ -88,8 +66,6 @@ public class Main {
 	}
 	
 	public static void move(String dir, int[][] arr_copy) {
-//		max_temp = 2;
-		changed = false;
 		if(dir.equals("up")) {
 			for(int col=0; col<n; col++) {
 				int before_row = -1;
