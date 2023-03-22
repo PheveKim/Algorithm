@@ -18,15 +18,6 @@ public class Main {
 		long c = Integer.parseInt(st.nextToken());
 		
 		long all_cnt = 0;
-//		if(b<c) {
-//			for(int i=0; i<n; i++) {
-//				int up = arr[i] / c;
-//				int left = arr[i] % c;
-//				if(left > 0) up++;
-//				all_cnt += up;
-//			}
-//		}
-//		else {
 		for(int i=0; i<n; i++) {
 			arr[i] -= b;
 			all_cnt++;
@@ -37,7 +28,6 @@ public class Main {
 				all_cnt += up;
 			}
 		}
-//		}
 		
 		System.out.println(all_cnt);
 		
