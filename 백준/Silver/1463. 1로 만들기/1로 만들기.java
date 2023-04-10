@@ -1,49 +1,22 @@
-import java.util.*;
-import java.math.*;
-import java.io.*;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+ 
+ 
 public class Main {
-	static int min_cnt;
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st;
-		
-		int n = Integer.parseInt(br.readLine());
-		
-		
-		min_cnt = Integer.MAX_VALUE;
-		dfs(n, 0);
-		System.out.println(min_cnt);
-		
-		
+ 
+		int N = Integer.parseInt(br.readLine());
+		System.out.println(recur(N, 0));
 	}
-	
-	
-	public static void dfs(int num, int cnt) {
-		
-		if(cnt >= min_cnt) { 
-			return;
+ 
+	static int recur(int N, int count) {
+		// N이 2 미만인 경우 누적된 count값을 반환
+		if (N < 2) {
+			return count;
 		}
-		
-		if(num == 1) {
-			
-			min_cnt = Math.min(min_cnt, cnt);
-			
-		}
-		
-		else if(num == 0) {
-			return;
-		}
-		
-		else {
-			if(num%3 == 0) {
-				dfs(num/3, cnt+1);
-			}
-			if(num%2 == 0) {
-				dfs(num/2, cnt+1);
-			}
-			dfs(num-1, cnt+1);
-		}
+		return Math.min(recur(N / 2, count + 1 + (N % 2)), recur(N / 3, count + 1 + (N % 3)));
+ 
 	}
 }
