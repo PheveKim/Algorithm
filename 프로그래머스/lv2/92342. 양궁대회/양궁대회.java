@@ -58,15 +58,18 @@ class Solution {
                     int chosen_least = 10;
                     int chosen_cnt = 0;
                     for(int j=chosen.length - 1; j>=0; j--){
-                        if(ans[j] > 0 && ans_least > chosen.length - j - 1){
+                        if(ans[j] > 0){
                             ans_least = chosen.length - j - 1;
                             ans_cnt = ans[j];
                         }
-                        if(chosen[j] > 0 && chosen_least > chosen.length - j - 1){
+                        if(chosen[j] > 0){
                             chosen_least = chosen.length - j - 1;
                             chosen_cnt = chosen[j];
                         }
-                        if(ans_least > chosen_least){
+                        if(ans_least < chosen_least){
+                            break;
+                        }
+                        else if(ans_least > chosen_least){
                             ans = Arrays.copyOf(chosen, chosen.length);
                             break;
                         }
