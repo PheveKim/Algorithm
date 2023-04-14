@@ -12,17 +12,8 @@ class Solution {
     static ArrayList<int[]> ans;
     public String[] solution(String[] orders, int[] course) {
         order_len = orders.length;
-        // 1 1 0 1 0 1
-        // 1 1 1 1 1 1
-        
-        // A : 1,2,4,6
-        // B : 1,5
-        // C : 1,2,3,4,5,6
-        // D : 3,4,6
-        // E : 3,4,6
-        // F : 1,5
-        // G : 1,5
-        // H : 6
+        // A : 1 1 0 1 0 1
+        // C : 1 1 1 1 1 1
         
         map = new HashMap<>();
         for(int i=0; i<orders.length; i++){
@@ -38,7 +29,6 @@ class Solution {
         alpha = new char[map_size];
         int idx = 0;
         for(char key : map.keySet()){
-            // System.out.println(key + " " + Arrays.toString(map.get(key)));
             alpha[idx] = key;
             idx++;
         }
@@ -91,14 +81,10 @@ class Solution {
             if(max_same_cnt < same_cnt){
                 max_same_cnt = same_cnt;
                 ans.clear();
-                int[] chosen_copy = new int[chosen.length];
-                chosen_copy = Arrays.copyOf(chosen, chosen.length);
-                ans.add(chosen_copy);
+                ans.add(Arrays.copyOf(chosen, chosen.length)); // 이렇게 하면 새롭게 선언할 필요 없음. 그냥 chosen 넣으면, chosen 값이                                                                // 바뀔때마다 ans안의 chosen 도 바뀌게됨(주소가 같기 때문)
             }
             else if(max_same_cnt == same_cnt){
-                int[] chosen_copy = new int[chosen.length];
-                chosen_copy = Arrays.copyOf(chosen, chosen.length);
-                ans.add(chosen_copy);
+                ans.add(Arrays.copyOf(chosen, chosen.length));
             }
         }
         else{
