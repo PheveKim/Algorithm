@@ -1,25 +1,17 @@
 import java.util.*;
-import java.io.*;
-
 class Solution {
     public int solution(String t, String p) {
+        int answer = 0;
         int p_len = p.length();
-        Long p_int = Long.parseLong(p);
-        int cnt = 0;
-        for(int i=0; i<t.length()-p_len+1; i++){
+        long pi = Long.parseLong(p);
+        
+        for(int i=0; i<t.length(); i++) {
+            if(i == t.length() - p_len + 1) break;
+            String s = t.substring(i, i+p_len);
+            Long si = Long.parseLong(s);
             
-            String target = t.substring(i,i+p_len);
-            Long target_int = Long.parseLong(target);
-            if(target_int <= p_int){
-                cnt++;
-            }
-        
+            if(si <= pi) answer++;
         }
-        
-        
-        
-        
-        
-        return cnt;
+        return answer;
     }
 }

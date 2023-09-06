@@ -1,10 +1,10 @@
 # [unrated] 크기가 작은 부분문자열 - 147355 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/147355?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/147355) 
 
 ### 성능 요약
 
-메모리: 74 MB, 시간: 0.12 ms
+메모리: 76.5 MB, 시간: 0.12 ms
 
 ### 구분
 
@@ -12,7 +12,7 @@
 
 ### 채점결과
 
-<br/>정확성: 100.0<br/>합계: 100.0 / 100.0
+Empty
 
 ### 문제 설명
 
