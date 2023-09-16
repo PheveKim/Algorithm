@@ -9,6 +9,8 @@ class Solution {
     static int[] ans;
     static int max_diff;
     
+    
+    
     public int[] solution(int n, int[] info) {
         int[] answer = {};
        
@@ -26,7 +28,7 @@ class Solution {
         
         if(max_diff == -1) return new int[] {-1};
         return ans;
-    }
+    }//
     
     public static void dfs(int cnt, int last_idx, int[] chosen){
         if(cnt >= n2){
