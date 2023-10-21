@@ -53,23 +53,22 @@ public class Solution {
 			int min = Integer.MAX_VALUE;
 			PriorityQueue<Node> q = new PriorityQueue<>();
 			q.add(new Node(0,0,arr[0][0]));
-			visited[0][0] = true;
 			
 			while(true) {
 				if(q.isEmpty()) break;
 				Node node = q.poll();
 				if(node.row == N-1 && node.col == N-1) {
-					min = node.dis;
-					break;
+					min = Math.min(min, node.dis);
 				}
 				for(int i=0; i<4; i++) {
 					int nr = node.row + dr[i];
 					int nc = node.col + dc[i];
 					if(!bc(nr,nc,N)) continue;
-					if(visited[nr][nc]) continue;
+					
+					if(dp[nr][nc] <= node.dis + arr[nr][nc]) continue;
 					
 					q.add(new Node(nr,nc,node.dis + arr[nr][nc]));
-					visited[nr][nc] = true;
+					dp[nr][nc] = node.dis + arr[nr][nc];
 				}
 			}
 			System.out.println("#" + (t+1) + " " + min);
