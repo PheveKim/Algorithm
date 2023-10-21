@@ -1,77 +1,91 @@
-import javax.imageio.IIOException;
 import java.util.*;
 import java.io.*;
-import java.lang.*;
 import java.math.*;
 
 public class Solution {
+	static class Node implements Comparable<Node>{
+		int row;
+		int col;
+		int dis;
+		
+		public Node(int row, int col, int dis) {
+			this.row = row;
+			this.col = col;
+			this.dis = dis;
+		}
+		
+		@Override
+		public int compareTo(Node n2) {
+			if(this.dis > n2.dis) return 1;
+			return -1;
+		}
 
-	static int[] dr = { -1, 1, 0, 0 };
-	static int[] dc = { 0, 0, -1, 1 };
-	static int[][] arr;
-	static int[][] dp;
-	static int N;
-
-	public static void main(String[] args) throws IOException {
-
+		@Override
+		public String toString() {
+			return "Node [row=" + row + ", col=" + col + ", dis=" + dis + "]";
+		}
+		
+	}
+	
+	static int[] dr = {-1,1,0,0};
+	static int[] dc = {0,0,-1,1};
+	
+	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st;
-
+		
 		int T = Integer.parseInt(br.readLine());
-
-		for (int t = 0; t < T; t++) {
-
-			N = Integer.parseInt(br.readLine());
-			arr = new int[N][N];
-			dp = new int[N][N];
-
-			for (int i = 0; i < N; i++) {
-				Arrays.fill(dp[i], Integer.MAX_VALUE);
-			}
-			dp[0][0] = 0;
-
-			for (int i = 0; i < N; i++) {
+		for(int t=0; t<T; t++) {
+			int N = Integer.parseInt(br.readLine());
+			int[][] arr = new int[N][N];
+			int[][] dp = new int[N][N];
+			boolean[][] visited = new boolean[N][N];
+			for(int r=0; r<N; r++) {
 				String str = br.readLine();
-				for (int j = 0; j < N; j++) {
-					arr[i][j] = Integer.parseInt(str.substring(j, j + 1));
+				for(int c=0; c<N; c++) {
+					int dis = Integer.parseInt(Character.toString(str.charAt(c)));
+					arr[r][c] = dis;
+					dp[r][c] = Integer.MAX_VALUE;
 				}
 			}
-
-			bfs(0, 0);
-
-			System.out.println("#" + (t + 1) + " " + dp[N - 1][N - 1]);
-
-		}
-
-	}
-
-	public static void bfs(int r, int c) {
-
-		Queue<int[]> q = new LinkedList<>();
-		q.add(new int[] { r, c });
-
-		while (!q.isEmpty()) {
-
-			int[] popped = q.poll();
-			int row = popped[0];
-			int col = popped[1];
-
-			for (int i = 0; i < 4; i++) {
-				int nr = row + dr[i];
-				int nc = col + dc[i];
-
-				if (nr >= 0 && nr < N && nc >= 0 && nc < N) {
-					if (dp[nr][nc] > dp[row][col] + arr[nr][nc]) {
-						dp[nr][nc] = dp[row][col] + arr[nr][nc];
-						q.add(new int[] { nr, nc });
-
-					}
+			
+			int min = Integer.MAX_VALUE;
+			PriorityQueue<Node> q = new PriorityQueue<>();
+			q.add(new Node(0,0,arr[0][0]));
+			visited[0][0] = true;
+			
+			while(true) {
+				if(q.isEmpty()) break;
+				Node node = q.poll();
+				if(node.row == N-1 && node.col == N-1) {
+					min = node.dis;
+					break;
 				}
-
+				for(int i=0; i<4; i++) {
+					int nr = node.row + dr[i];
+					int nc = node.col + dc[i];
+					if(!bc(nr,nc,N)) continue;
+					if(visited[nr][nc]) continue;
+					
+					q.add(new Node(nr,nc,node.dis + arr[nr][nc]));
+					visited[nr][nc] = true;
+				}
 			}
+			System.out.println("#" + (t+1) + " " + min);
 		}
-
 	}
-
+	static boolean bc(int row, int col, int N) {
+		if(row>=0 && row<N && col>=0 && col<N) return true;
+		return false;
+	}
+	static void printarr(int[][] arr) {
+		for(int r=0; r<arr.length; r++) {
+			for(int c=0; c<arr[0].length; c++) {
+				System.out.print(arr[r][c] + " ");
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
 }
