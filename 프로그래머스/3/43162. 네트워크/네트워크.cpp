@@ -2,8 +2,6 @@
 #include <vector>
 #include <iostream>
 #include <map>
-#include <algorithm>
-
 
 using namespace std;
 
@@ -39,19 +37,14 @@ int solution(int n, vector<vector<int>> computers) {
             }
         }
     }
+    
+    // 중요!
     for(int i=0; i<n; i++) parent[i] = findParent(i);
-    
-    sort(parent, parent+n);
-    answer++;
-    
-    for(int i=0; i<n-1; i++) {
-        if (parent[i] != parent[i+1]) answer++;
-    }
     
     map<int, int> map;
     for(int i=0; i<n; i++){
         map[parent[i]] = 1;
     }
     
-    return answer;
+    return map.size();
 }
